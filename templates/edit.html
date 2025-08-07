@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit Entry</h2>
+<form method="POST" action="{{ url_for('edit_item', item_id=item.id) }}">
+
+  {{ form.hidden_tag() }}
+
+  <div class="mb-3">
+    {{ form.site_name.label }}<br>
+    {{ form.site_name(class="form-control") }}
+  </div>
+
+  <div class="mb-3">
+    {{ form.username.label }}<br>
+    {{ form.username(class="form-control") }}
+  </div>
+
+  <div class="mb-3">
+    {{ form.password.label }}<br>
+    {{ form.password(class="form-control") }}
+  </div>
+
+  {{ form.submit(class="btn btn-warning") }}
+  <a href="{{ url_for('vault') }}" class="btn btn-secondary ms-2">Cancel</a>
+</form>
+{% endblock %}
