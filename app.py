@@ -22,6 +22,20 @@ login_manager.login_view = 'login'
 
 csrf = CSRFProtect(app)
 
+
+
+
+@app.route('/admin/users')
+def admin_users():
+    users = User.query.all()
+    return {
+        "users": [
+            {"id": user.id, "email": user.email}
+            for user in users
+        ]
+    }
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
