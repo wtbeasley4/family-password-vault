@@ -32,6 +32,21 @@ def home():
     return "Family Vault App is running!"
 
 
+@app.route('/vault-check')
+@login_required
+def vault_check():
+    items = VaultItem.query.filter_by(user_id=current_user.id).all()
+    return {
+        "user": current_user.email,
+        "items": [
+            {
+                "site": item.site_name,
+                "username": item.username,
+                "password": decrypt_password(item.encrypted_password)
+            } for item in items
+        ]
+    }
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
